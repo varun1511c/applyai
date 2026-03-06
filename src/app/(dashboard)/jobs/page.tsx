@@ -3,13 +3,14 @@ import { SavedJobs } from "@/components/jobs/SavedJobs";
 import { Briefcase, Bookmark } from "lucide-react";
 
 // Tabs are client-driven — we pass tab state via searchParams
-export default function JobsPage({
+export default async function JobsPage({
   searchParams,
 }: {
-  searchParams: { tab?: string };
+  searchParams: Promise<{ tab?: string }>;
 }) {
+  const { tab: tabParam } = await searchParams;
   const hasAdzuna = !!(process.env.ADZUNA_APP_ID && process.env.ADZUNA_API_KEY);
-  const tab = searchParams?.tab === "saved" ? "saved" : "search";
+  const tab = tabParam === "saved" ? "saved" : "search";
 
   return (
     <div className="space-y-6">
