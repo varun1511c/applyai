@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { renderToBuffer } from "@react-pdf/renderer";
+import { renderToBuffer, type DocumentProps } from "@react-pdf/renderer";
 import { ResumePDFDocument } from "@/lib/resume/pdf-template";
 import React from "react";
 
@@ -33,7 +33,7 @@ export async function GET(
 
   try {
     const buffer = await renderToBuffer(
-      React.createElement(ResumePDFDocument, { resume })
+      React.createElement(ResumePDFDocument, { resume }) as React.ReactElement<DocumentProps>
     );
 
     const safeName = (resume.name as string).replace(/[^a-z0-9]/gi, "_");
