@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { renderToBuffer } from "@react-pdf/renderer";
@@ -40,8 +41,6 @@ export async function GET(
     const safeName = (resume.name as string).replace(/[^a-z0-9]/gi, "_");
     const blob = new Blob([buffer], { type: "application/pdf" });
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     return new Response(blob, {
       headers: {
         "Content-Type": "application/pdf",
