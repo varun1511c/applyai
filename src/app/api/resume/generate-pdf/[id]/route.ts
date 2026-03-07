@@ -38,8 +38,11 @@ export async function GET(
     );
 
     const safeName = (resume.name as string).replace(/[^a-z0-9]/gi, "_");
+    const blob = new Blob([buffer], { type: "application/pdf" });
 
-    return new Response(new Uint8Array(buffer), {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return new Response(blob, {
       headers: {
         "Content-Type": "application/pdf",
         "Content-Disposition": `attachment; filename="${safeName}.pdf"`,
